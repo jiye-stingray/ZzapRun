@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody2D rigid;
-    public int jumpCount = 0;
-    int jumpCountMax = 1;
+    Rigidbody2D rigid;      //물리
+    public int jumpCount = 0;   //현재 점프 횟수
+    int jumpCountMax = 2;       //가장큰 점프 수
+
     [SerializeField]
-    int jumpForce = 5;
-    float maxForce = 5.0f;
-    bool isGround;
+    int jumpForce = 2;      //점프할때 가해지는 힘
+    [SerializeField]
+    float maxForce = 5.0f;     //점프하는 순간에 있을 수 있는 가장 큰 힘
+    bool isGround;              //땅 체크
     
     void Awake()
     {
@@ -19,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //Jump
+        //Jump 할 수 있는지 없는지 
         jumpCheck();
 
 
@@ -37,10 +39,10 @@ public class PlayerController : MonoBehaviour
         {
             rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpCount++;
+            Debug.Log(jumpCount);
            
         }
-       
-
+        
     }
 
    
@@ -48,8 +50,13 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit2D rayhit = Physics2D.Raycast(rigid.position, Vector2.down, 1, LayerMask.GetMask("Platform"));
         if (rayhit.collider != null)
+        {
             isGround = true;
-        else isGround = false;
+        }
+        else
+        {
+            isGround = false;
+        }
     }
     
     void jumpCheck()
@@ -57,7 +64,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && jumpCount < jumpCountMax)
         {
             jump();
-
+           
         }
         if (isGround && jumpCount >= jumpCountMax)
             jumpCount = 0;
