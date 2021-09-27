@@ -34,15 +34,16 @@ public class PlayerController : MonoBehaviour
 
     public void jump()
     {
-
-        if (rigid.velocity.y < maxForce)
+        if (rigid.velocity.y < maxForce) //y속도가 최대 속도보다 적을 때
         {
-            rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            jumpCount++;
-            Debug.Log(jumpCount);
-           
+            rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); //위로 jumpForce만큼 힘을 준다
         }
-        
+        else //그렇지 않을 때
+        {
+            //y속도를 maxForce(최대 속도)만큼만 준다.
+            rigid.velocity = new Vector2(rigid.velocity.x,maxForce); //y속도를 maxForce(최대 속도)만큼만 준다.
+        }
+        jumpCount++;
     }
 
    
