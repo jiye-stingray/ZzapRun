@@ -483,8 +483,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dbb4c5f561c7e048ad3ce34737e2eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnObjects: []
-  item: []
+  spawnObjects:
+  - {fileID: 48114631}
+  - {fileID: 1121611180}
+  - {fileID: 1433904959}
+  - {fileID: 1877405176}
+  item:
+  - {fileID: 8658226836287323512, guid: b0a6727fa90a5354a82f98e810fa7e77, type: 3}
+  - {fileID: 5875791420910475503, guid: 262b9e1cab1a03747beae157cc72dc53, type: 3}
+  - {fileID: 2142215072932892824, guid: 6d90d3508943e7340b407f603b84692c, type: 3}
 --- !u!4 &1189896372
 Transform:
   m_ObjectHideFlags: 0
