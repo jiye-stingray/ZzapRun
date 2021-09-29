@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        //¶¥ Ã¼Å©
         GroundCheak();
 
     }
@@ -69,5 +70,13 @@ public class PlayerController : MonoBehaviour
         }
         if (isGround && jumpCount >= jumpCountMax)
             jumpCount = 0;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }

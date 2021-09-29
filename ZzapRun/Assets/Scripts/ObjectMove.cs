@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ObjectMove : MonoBehaviour
 {
+    public int score;
+
     Rigidbody2D rigid;
 
     void Awake()
