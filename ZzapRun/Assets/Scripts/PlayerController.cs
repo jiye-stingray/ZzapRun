@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rigid;      //물리
-    public int jumpCount = 0;   //현재 점프 횟수
+    public int jumpCount;   //현재 점프 횟수
     int jumpCountMax = 2;       //가장큰 점프 수
 
     [SerializeField]
@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float maxForce = 5.0f;     //점프하는 순간에 있을 수 있는 가장 큰 힘
     bool isGround;              //땅 체크
-    
+
     void Awake()
     {
         rigid = gameObject.GetComponent<Rigidbody2D>();
@@ -21,10 +21,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //Jump 할 수 있는지 없는지 
         jumpCheck();
-
-
+        jump();
     }
     void FixedUpdate()
     {
@@ -35,19 +33,19 @@ public class PlayerController : MonoBehaviour
 
     public void jump()
     {
-        if (rigid.velocity.y < maxForce) //y속도가 최대 속도보다 적을 때
+        if (Input.GetButtonDown("Jump") && jumpCount < jumpCountMax)
         {
-            rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); //위로 jumpForce만큼 힘을 준다
+            float velY = rigid.velocity.y;
+            if (rigid.velocity.y >= maxForce)
+            {
+                rigid.velocity = new Vector2(rigid.velocity.x, maxForce);
+            }
+            rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            jumpCount++;
         }
-        else //그렇지 않을 때
-        {
-            //y속도를 maxForce(최대 속도)만큼만 준다.
-            rigid.velocity = new Vector2(rigid.velocity.x,maxForce); //y속도를 maxForce(최대 속도)만큼만 준다.
-        }
-        jumpCount++;
     }
 
-   
+
     void GroundCheak()
     {
         RaycastHit2D rayhit = Physics2D.Raycast(rigid.position, Vector2.down, 1, LayerMask.GetMask("Platform"));
@@ -60,14 +58,9 @@ public class PlayerController : MonoBehaviour
             isGround = false;
         }
     }
-    
+
     void jumpCheck()
     {
-        if (Input.GetButtonDown("Jump") && jumpCount < jumpCountMax)
-        {
-            jump();
-           
-        }
         if (isGround && jumpCount >= jumpCountMax)
             jumpCount = 0;
     }
