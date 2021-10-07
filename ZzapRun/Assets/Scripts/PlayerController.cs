@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Item")
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
     }
 }

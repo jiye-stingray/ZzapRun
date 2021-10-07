@@ -5,20 +5,37 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Transform[] spawnObjects;
-    public GameObject[] item;
 
+    public ObjectManager objectPull;
     void Start()
     {
         SpwanItem();
     }
 
+    //아이템을 키는 함수
     void SpwanItem()
     {
-        int spawnPosition = Random.Range(0, 4);
-        int itemtype = Random.Range(0, 3);
-        Instantiate(item[itemtype],spawnObjects[spawnPosition].position ,
-                                    spawnObjects[spawnPosition].rotation);
+        GameObject[][] pullObjs = new GameObject[][] { objectPull.itemBronze, objectPull.itemSilver, objectPull.itemGold };
 
+
+        int renSpawnPosition = Random.Range(0, 4);  //랜덤으로 지정할 spawn위치
+        int renItemIndex = Random.Range(0, pullObjs.Length);      //랜덤으로 지정할 아이템 종류
+       
+
+        //소환할 
+        
+
+
+        for (int i = 0; i < pullObjs[renItemIndex].Length; i++)
+        {
+            if (!pullObjs[renItemIndex][i].activeSelf)
+            {
+                pullObjs[renItemIndex][i].SetActive(true);
+                pullObjs[renItemIndex][i].transform.position = spawnObjects[renSpawnPosition].position;
+            }
+
+        }
+        
         Invoke("SpwanItem", 0.3f);
     }
 }
