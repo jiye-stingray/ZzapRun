@@ -12,16 +12,19 @@ public class PlayerController : MonoBehaviour
     int jumpForce = 2;      //점프할때 가해지는 힘
     [SerializeField]
     float maxForce = 5.0f;     //점프하는 순간에 있을 수 있는 가장 큰 힘
+    [SerializeField]
     bool isGround;              //땅 체크
+
+    Animator anim;
 
     void Awake()
     {
-        rigid = gameObject.GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        jumpCheck();
         jump();
     }
     void FixedUpdate()
@@ -33,16 +36,20 @@ public class PlayerController : MonoBehaviour
 
     public void jump()
     {
+        if (isGround && jumpCount >= jumpCountMax)
+            jumpCount = 0;
         if (Input.GetButtonDown("Jump") && jumpCount < jumpCountMax)
         {
-            float velY = rigid.velocity.y;
+            anim.SetBool("isJumping",true);
             if (rigid.velocity.y >= maxForce)
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, maxForce);
             }
             rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpCount++;
+            
         }
+     
     }
 
 
@@ -52,18 +59,15 @@ public class PlayerController : MonoBehaviour
         if (rayhit.collider != null)
         {
             isGround = true;
+            anim.SetBool("isJumping", false);
         }
         else
         {
             isGround = false;
+            anim.SetBool("isJumping", true);
         }
     }
 
-    void jumpCheck()
-    {
-        if (isGround && jumpCount >= jumpCountMax)
-            jumpCount = 0;
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public int score;
+    public int score;       //플레이어에게 넘겨줄 자신의 점수
+    public string type;     //아이템의 종류를 구분하기 위한 변수
 
     Rigidbody2D rigid;
 
@@ -12,5 +13,13 @@ public class Item : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         rigid.velocity = Vector2.left * 3;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Platform")
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
