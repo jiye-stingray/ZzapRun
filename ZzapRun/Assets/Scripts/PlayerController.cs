@@ -5,15 +5,22 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rigid;      //물리
-    public int jumpCount;   //현재 점프 횟수
-    int jumpCountMax = 2;       //가장큰 점프 수
+    public GameManager gameManager;
 
+    [Header("jump")]
+    public int jumpCount;   //현재 점프 횟수
+    int jumpCountMax = 2;    //가장큰 점프 수
     [SerializeField]
     int jumpForce = 2;      //점프할때 가해지는 힘
     [SerializeField]
     float maxForce = 5.0f;     //점프하는 순간에 있을 수 있는 가장 큰 힘
-    [SerializeField]
     bool isGround;              //땅 체크
+
+    [Header("play")]
+    [SerializeField]
+    public int score = 0;
+    [SerializeField]
+    public int health = 0;
 
     Animator anim;
 
@@ -73,7 +80,13 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Item")
         {
+            Item item = collision.gameObject.GetComponent<Item>();
+            getScore(item.score);
             collision.gameObject.SetActive(false);
         }
+    }
+    void getScore(int score)
+    {
+        this.score += score;
     }
 }

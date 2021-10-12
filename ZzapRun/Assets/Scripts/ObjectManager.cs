@@ -15,9 +15,9 @@ public class ObjectManager : MonoBehaviour
     void Awake()
     {
         //배열 크기 정의
-        itemGold = new GameObject[10];
-        itemSilver = new GameObject[10];
-        itemBronze = new GameObject[10];
+        itemGold = new GameObject[20];
+        itemSilver = new GameObject[20];
+        itemBronze = new GameObject[20];
 
         Generate();
     }
@@ -42,7 +42,7 @@ public class ObjectManager : MonoBehaviour
     }
 
     //오브젝트를반환하는
-    public object[] getObj(string type)
+    public GameObject GetObj(string type)
     {
         GameObject[] targetObj = null;
         switch (type) {
@@ -56,12 +56,17 @@ public class ObjectManager : MonoBehaviour
                 targetObj = itemBronze;
                 break;
         }
-        return targetObj;
+        foreach (GameObject item in targetObj)
+        {
+            if (!item.activeSelf)
+            {
+                item.SetActive(true);
+                return item;
+            }
+            
+        }
+        return null;
     }
 
 
-    void Update()
-    {
-        
-    }
 }
