@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     public Text scoretext;
+    public Image hpGauge;
 
 
     void Awake()
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateScore();
+        HpGauge();
     }
 
     //아이템을 키는 함수
@@ -41,9 +43,14 @@ public class GameManager : MonoBehaviour
         Invoke("SpawnItem", 0.2f);
     }
 
+    //점수 UI
     void UpdateScore()
     {
-        
         scoretext.text = player.score.ToString();
+    }
+    //체력 UI
+    void HpGauge()
+    {
+        hpGauge.fillAmount = (float)player.health / 100;
     }
 }

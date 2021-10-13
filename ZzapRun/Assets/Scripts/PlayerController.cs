@@ -21,9 +21,12 @@ public class PlayerController : MonoBehaviour
     public int score = 0;
     [SerializeField]
     public int health = 0;
+    public float runingTime = 1f;        //달리다가 이 시간간격 만큼 체력이 감소
+    public float curruningTime = 0f;    //현재 달리고 있던 시간   
 
     Animator anim;
 
+    
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -33,6 +36,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         jump();
+
+        //체력 감소
+        curruningTime += Time.deltaTime;
+        if (curruningTime > runingTime)
+        {
+            curruningTime = 0f;
+            health--;
+        }
+        
     }
     void FixedUpdate()
     {
@@ -75,6 +87,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void getScore(int score)
+    {
+        this.score += score;
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -85,8 +102,5 @@ public class PlayerController : MonoBehaviour
             collision.gameObject.SetActive(false);
         }
     }
-    void getScore(int score)
-    {
-        this.score += score;
-    }
+    
 }
