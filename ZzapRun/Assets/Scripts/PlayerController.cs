@@ -33,17 +33,16 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    void Start()
+    {
+        //체력 감소
+        StartCoroutine(Reducedstamina());
+    }
     void Update()
     {
         jump();
 
-        //체력 감소
-        curruningTime += Time.deltaTime;
-        if (curruningTime > runingTime)
-        {
-            curruningTime = 0f;
-            health--;
-        }
+        
         
     }
     void FixedUpdate()
@@ -59,6 +58,7 @@ public class PlayerController : MonoBehaviour
             jumpCount = 0;
         if (Input.GetButtonDown("Jump") && jumpCount < jumpCountMax)
         {
+            health--;
             anim.SetBool("isJumping",true);
             if (rigid.velocity.y >= maxForce)
             {
@@ -92,6 +92,18 @@ public class PlayerController : MonoBehaviour
         this.score += score;
     }
 
+    //지정된 시간 마다 체력 감소
+    IEnumerator Reducedstamina()
+    {
+        
+        while (true)
+        {
+            health--;
+            Debug.Log("호출");
+            yield return new WaitForSeconds(1);
+        }
+        
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
