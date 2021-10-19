@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,9 +13,8 @@ public class GameManager : MonoBehaviour
     public PlayerController player;
 
     [Header("UI")]
-    public Text scoretext;
     public Image hpGauge;
-
+    public Text scoreText;
 
     void Awake()
     {
@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        HpCheck();
         UpdateScore();
-        HpGauge();
     }
 
     //아이템을 키는 함수
@@ -43,14 +43,19 @@ public class GameManager : MonoBehaviour
         Invoke("SpawnItem", 0.2f);
     }
 
-    //점수 UI
     void UpdateScore()
     {
-        scoretext.text = player.score.ToString();
+        scoreText.text = player.score.ToString();
     }
+
     //체력 UI
-    void HpGauge()
+    void HpCheck()
     {
+       
         hpGauge.fillAmount = (float)player.health / 100;
+        if (player.health <= 0)
+        {
+            SceneManager.LoadScene("GameOverScene");
+        }
     }
 }
