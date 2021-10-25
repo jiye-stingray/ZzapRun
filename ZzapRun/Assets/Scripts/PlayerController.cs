@@ -41,9 +41,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         jump();
-
-        
-        
+    
     }
     void FixedUpdate()
     {
@@ -62,7 +60,7 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isJumping",true);
             if (rigid.velocity.y >= maxForce)
             {
-                rigid.velocity = new Vector2(rigid.velocity.x, maxForce);
+                rigid.velocity = Vector2.zero;
             }
             rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpCount++;

@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     public ObjectManager objectPool;
     public string[] itemObjects;
 
-    public PlayerController player;
+    [SerializeField]
+    PlayerController player;
 
     [Header("UI")]
     public Image hpGauge;
@@ -18,14 +19,14 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        player =  SystemManager.Instance.Hero;
         objectPool = FindObjectOfType<ObjectManager>();
-        player = FindObjectOfType<PlayerController>();
         itemObjects = new string[] { "ItemGold", "ItemSilver", "ItemBronze" };
        
     }
     void Start()
     {
-        SpawnItem();
+        StartCoroutine(SpawnItem());
     }
 
     void Update()
@@ -34,13 +35,14 @@ public class GameManager : MonoBehaviour
         UpdateScore();
     }
 
-    //아이템을 키는 함수
-    void SpawnItem()
+    IEnumerator SpawnItem()
     {
-        GameObject item = objectPool.GetObj(itemObjects[Random.Range(0, itemObjects.Length)]);
-        item.transform.position = spawnObjects[Random.Range(0,spawnObjects.Length)].position;
-
-        Invoke("SpawnItem", 0.2f);
+        while(true)
+        {
+            GameObject item = objectPool.GetObj(itemObjects[Random.Range(0, itemObjects.Length)]);
+            item.transform.position = spawnObjects[Random.Range(0, spawnObjects.Length)].position;
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
     }
 
     void UpdateScore()
