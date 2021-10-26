@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     {
         player =  SystemManager.Instance.Hero;
         objectPool = FindObjectOfType<ObjectManager>();
-        itemObjects = new string[] { "ItemGold", "ItemSilver", "ItemBronze" };
+        itemObjects = new string[] { "ItemGold", "ItemSilver", "ItemBronze" , "Heart"};
        
     }
     void Start()
@@ -39,7 +39,13 @@ public class GameManager : MonoBehaviour
     {
         while(true)
         {
-            GameObject item = objectPool.GetObj(itemObjects[Random.Range(0, itemObjects.Length)]);
+            int ranItemIndex = Random.Range(0, 10);
+            GameObject item = null;
+            if (ranItemIndex == 0)
+                item = objectPool.GetObj("Heart");
+            else
+                item = objectPool.GetObj(itemObjects[Random.Range(0,itemObjects.Length-1)]);
+
             item.transform.position = spawnObjects[Random.Range(0, spawnObjects.Length)].position;
             yield return new WaitForSecondsRealtime(0.5f);
         }

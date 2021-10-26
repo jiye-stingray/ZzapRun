@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public int score = 0;
     [SerializeField]
     public int health = 0;
+    int MAXHP = 100;
     public float runingTime = 1f;        //달리다가 이 시간간격 만큼 체력이 감소
     public float curruningTime = 0f;    //현재 달리고 있던 시간   
 
@@ -35,8 +36,10 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         //체력 감소
         StartCoroutine(Reducedstamina());
+        health = MAXHP;
     }
     void Update()
     {
@@ -85,9 +88,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void getScore(int score)
+    void getScore(int score, Item.Type type)
     {
-        this.score += score;
+        if (type == Item.Type.Gold)
+        {
+            this.score += score;
+        }
+        else if(type == Item.Type.heart)
+        {
+            if (health + score > MAXHP)
+                score = MAXHP - health;
+            health += score;
+        }
     }
 
     //지정된 시간 마다 체력 감소
@@ -97,7 +109,6 @@ public class PlayerController : MonoBehaviour
         while (true)
         {
             health--;
-            Debug.Log("호출");
             yield return new WaitForSeconds(1);
         }
         
@@ -108,7 +119,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Item")
         {
             Item item = collision.gameObject.GetComponent<Item>();
-            getScore(item.score);
+            getScore(item.score,item.type);
             collision.gameObject.SetActive(false);
         }
     }

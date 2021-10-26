@@ -7,10 +7,12 @@ public class ObjectManager : MonoBehaviour
     public GameObject itemGoldPrefab;
     public GameObject itemSilverPrefab;
     public GameObject itemBronzePrefab;
+    public GameObject heartPrefab;
 
     public GameObject[] itemGold;
     public GameObject[] itemSilver;
     public GameObject[] itemBronze;
+    public GameObject[] heart;
 
     void Awake()
     {
@@ -18,6 +20,7 @@ public class ObjectManager : MonoBehaviour
         itemGold = new GameObject[20];
         itemSilver = new GameObject[20];
         itemBronze = new GameObject[20];
+        heart = new GameObject[10];
 
         Generate();
     }
@@ -39,6 +42,11 @@ public class ObjectManager : MonoBehaviour
             itemBronze[i] = Instantiate(itemBronzePrefab);
             itemBronze[i].SetActive(false);
         }
+        for (int i = 0; i < heart.Length; i++)
+        {
+            heart[i] = Instantiate(heartPrefab);
+            heart[i].SetActive(false);
+        }
     }
 
     //오브젝트를반환하는
@@ -54,6 +62,9 @@ public class ObjectManager : MonoBehaviour
                 break;
             case "ItemBronze":
                 targetObj = itemBronze;
+                break;
+            case "Heart":
+                targetObj = heart;
                 break;
         }
         foreach (GameObject item in targetObj)

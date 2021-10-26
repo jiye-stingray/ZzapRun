@@ -37,15 +37,4 @@ public class SystemManager : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    ObjectManager objectManager;
-    public ObjectManager objectPool
-    {
-        get
-        {
-            return objectManager;
-        }
-    }
-
-
 }

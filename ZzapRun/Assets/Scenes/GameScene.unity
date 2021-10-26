@@ -274,9 +274,11 @@ MonoBehaviour:
   itemGoldPrefab: {fileID: 4076148134038833887, guid: 6d90d3508943e7340b407f603b84692c, type: 3}
   itemSilverPrefab: {fileID: 9160018777105199643, guid: 262b9e1cab1a03747beae157cc72dc53, type: 3}
   itemBronzePrefab: {fileID: 3458670481936158226, guid: b0a6727fa90a5354a82f98e810fa7e77, type: 3}
+  heartPrefab: {fileID: 3967343539055128932, guid: 16db92905d7b5ba41821d100f4ac51d9, type: 3}
   itemGold: []
   itemSilver: []
   itemBronze: []
+  heart: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

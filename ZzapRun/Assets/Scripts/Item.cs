@@ -5,9 +5,16 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public int score;       //플레이어에게 넘겨줄 자신의 점수
-    public string type;     //아이템의 종류를 구분하기 위한 변수
 
     Rigidbody2D rigid;
+
+    public enum Type
+    {
+        Gold,
+        heart
+    }
+
+    public Type type;
 
     void OnEnable()
     {
