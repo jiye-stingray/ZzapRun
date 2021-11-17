@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameOverManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject player = null;
+    PlayerController player = null;
 
     [SerializeField]
     Text scoreText;
@@ -14,12 +14,12 @@ public class GameOverManager : MonoBehaviour
     
     void Awake()
     {    
-        player = GameObject.Find("Player");
+        player = SystemManager.Instance.Hero;
     }
 
     
     void Start()
     {
-        scoreText.text = player.GetComponent<PlayerController>().score.ToString();
+        scoreText.text = player.score.ToString();
     }
 }

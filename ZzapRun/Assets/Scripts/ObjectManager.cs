@@ -55,26 +55,41 @@ public class ObjectManager : MonoBehaviour
         GameObject[] targetObj = null;
         switch (type) {
             case "ItemGold":
-                targetObj = itemGold;
-                break;
+                {
+                    targetObj = itemGold;
+                    break;
+                }
+ 
             case "ItemSilver":
-                targetObj = itemSilver;
-                break;
+                {
+                    targetObj = itemSilver;
+                    break;
+                }
+  
             case "ItemBronze":
-                targetObj = itemBronze;
-                break;
+                {
+                    targetObj = itemBronze;
+                    break;
+                }
+ 
             case "Heart":
-                targetObj = heart;
-                break;
+                {
+                    targetObj = heart;
+                    break;
+                }
+
+     
+
         }
-        foreach (GameObject item in targetObj)
+        for (int i = 0; i < targetObj.Length; i++)
         {
+            Debug.Log("itme"+i);
+            GameObject item = targetObj[i];
             if (!item.activeSelf)
             {
                 item.SetActive(true);
                 return item;
             }
-            
         }
         return null;
     }

@@ -7,26 +7,27 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public Transform[] spawnObjects;
-    public ObjectManager objectPool;
+    public ObjectManager objectPool => SystemManager.Instance.ObjectManager;
     public string[] itemObjects;
 
     [SerializeField]
-    PlayerController player;
+    PlayerController player => SystemManager.Instance.Hero;
 
     [Header("UI")]
     public Image hpGauge;
     public Text scoreText;
 
+
+    
     void Awake()
     {
-        player =  SystemManager.Instance.Hero;
-        objectPool = FindObjectOfType<ObjectManager>();
+        
+
         itemObjects = new string[] { "ItemGold", "ItemSilver", "ItemBronze" , "Heart"};
-       
     }
     void Start()
     {
-        StartCoroutine(SpawnItem());
+        StartCoroutine("SpawnItem");
     }
 
     void Update()

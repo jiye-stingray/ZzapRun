@@ -6,6 +6,10 @@ public class SystemManager : MonoBehaviour
 {
     static SystemManager instance = null;
 
+    void Start()
+    {
+        DontDestroyOnLoad(this);
+    }
     public static SystemManager Instance
     {
         get
@@ -36,5 +40,13 @@ public class SystemManager : MonoBehaviour
             return player;
         }
     }
-
+    [SerializeField]
+    ObjectManager objectManager;
+    public ObjectManager ObjectManager
+    {
+        get
+        {
+            return objectManager;
+        }
+    }
 }
